@@ -5,10 +5,10 @@
     <h3>Create a New Listing</h3>
     <br>
     <form method="POST" action="/listings">
-     <div class="mb-3">
-        <label for="title" class ="form-label">Title</label>
-        <input type="text" name="listing[title]" placeholder="Title" class ="form-control"/>
-     </div>
+         <div class="mb-3">
+            <label for="title" class ="form-label">Title</label>
+            <input type="text" name="listing[title]" placeholder="Title" class ="form-control"/>
+         </div>
 
      <div class="mb-3">
         <label for="description" class ="form-label">Description</label>
@@ -30,17 +30,14 @@
         <label for="country" class ="form-label">Country</label>
         <input type="text" name="listing[country]" placeholder="Country" class ="form-control">
      </div>
-    </div>
+    </div> 
 
      <div class="mb-3">
         <label for="location" class ="form-label">Location</label>
         <input type="text" name="listing[location]" placeholder="Location" class ="form-control">
      </div>
-
-     <div class="text-center">
-       <button class ="btn btn-dark">Add</button>
-     </div>
-    <br>
+      
+       <button class ="btn btn-dark add-btn">Add</button><br></br>
     </form>
   </div>
 </div>   
