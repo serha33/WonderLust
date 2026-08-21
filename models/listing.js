@@ -11,7 +11,10 @@ const listingSchema = new schema({
   set: (v) => v === "" ? "https://unsplash.com/photos/a-path-with-light-posts-and-trees-by-the-water-Wi3zjH4pB1k" : v,
   },
   
-  price: Number,
+  price: {
+    type: Number,
+    required: true,
+  },
   location: String,
   country: String,
 
