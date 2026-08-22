@@ -69,15 +69,22 @@ app.get('/listings/:id', async (req, res) => {
 });
 
 //Create Route
-app.post('/listings', async (req, res) => {
-  console.log("post route reached")
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  console.log('New listing created:', newListing);
-  res.redirect('/listings');
+app.post('/listings', async (req, res, next) => {
+  try{
+     console.log("post route reached")
+     const newListing = new Listing(req.body.listing);
+     await newListing.save();
+     console.log('New listing created:', newListing);
+     res.redirect('/listings');
+  } catch (err){
+    next(err);
+  }
+ 
 });
 
- 
+ app.use((err,req,res,next)=> {
+  res.send("Something went wrong");
+ });
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
