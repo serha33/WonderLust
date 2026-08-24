@@ -9,6 +9,7 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const {listingSchema, reviewSchema}= require("./schema.js");
 const Review = require('./models/review.js');
+const review = require('./models/review.js');
 
 
 app.set('view engine', 'ejs');
@@ -115,8 +116,7 @@ app.post('/listings',
      res.redirect('/listings');
 }));
 
-//reviews
-//post route
+//post reviews route
 app.post("/listings/:id/reviews",validateReview, wrapAsync(async(req, res) =>{
   let listing = await Listing.findById(req.params.id);
   let newReview = new Review(req.body.review);
@@ -126,6 +126,19 @@ app.post("/listings/:id/reviews",validateReview, wrapAsync(async(req, res) =>{
   await listing.save();
   res.redirect(`/listings/${listing._id}`)
 }));
+
+//post reviews route
+app.delete("/listings/:id/reviews/:reviewId",
+  wrapAsync( async(req, res) =>{
+    let {id, reviewId} = req.params;
+    await Listing.findByIdAndUpdate(id, {$pull: {reviews:reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listings/${id}`);
+  }
+  )
+
+)
+
 app.all("/{*splat}",(req,res,next)=>{
   next(new ExpressError(404, "Page not found"))
 }
