@@ -15,6 +15,20 @@ app.use(methodOverride('_method'));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname,'public')));
 
+const sessionOptions ={
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now()+ 7*24*60*60*1000,
+    maxAge: 7*24*60*60*1000,
+    httpOnly: true,
+  }
+};
+
+app.use(session(sessionOptions()));
+app.use(flash());
+
 
 const mongoURI = "mongodb://127.0.0.1:27017/WonderLust";
 

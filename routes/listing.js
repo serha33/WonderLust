@@ -67,13 +67,10 @@ router.get('/:id',
 router.post('/',
   validateListings, 
   wrapAsync(async (req, res, next) => {
-    listingSchema.validate(req.body);
-     if (result.error){
-       throw new ExpressError(400, result.error);
-     }
      console.log("post route reached")
      const newListing = new Listing(req.body.listing);
      await newListing.save();
+     req.flash ("Success", "New Listing created");
      res.redirect('/listings');
 }));
 
